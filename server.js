@@ -4,7 +4,7 @@ var app = express();
 var server  = app.listen(3000);
 var io      = require('socket.io').listen(server);
 
-//app.use(express.static('./client'));
+app.use(express.static('./client'));
 //app.use(bodyParser.json());
 // var sessionMidleware = session({
 //     secret: 'Ult1mAteC00ck1e!!!!',
@@ -13,6 +13,29 @@ var io      = require('socket.io').listen(server);
 // });
 // app.use(sessionMidleware);
 app.get("/",function(req,res){
-	res.send("Alooooo2222");
+	res.sendFile(__dirname+'/client/index.html');
 })
+
+var players = [];
+
+io.on('connection', function(socket){
+	console.log("con");
+	socket.on('addPlayer',function(player){
+		players.push(player);
+		console.log(players.length+ " "+player.id);
+	});
+	socket.on('disconnect', function(){
+        	console.log('user disconnected');
+        });
+   	 socket.on('possitionUpdate', function(player){
+		for(var i=0;i<players.length;i++){
+			if(players[i].id === player.id){
+				players[i] = player
+			}	
+		}
+		io.emit('localUpdatePossition',players);
+           // console.log(packet);
+		//io.sockets.emit('possitionUpdate', socket.handshake.session.username+" : "+packet.message);
+	});
+});
 console.log("Server started at localhost:" + server.address().port );
