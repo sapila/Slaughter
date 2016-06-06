@@ -24,7 +24,7 @@ io.on('connection', function(socket){
 		players.push(player);
 		console.log(players.length+ " "+player.id);
 	});
-	socket.on('disconnect', function(){
+	socket.on('disconnect', function(sock){
         	console.log('user disconnected');
         });
    	 socket.on('possitionUpdate', function(player){
@@ -34,8 +34,7 @@ io.on('connection', function(socket){
 			}	
 		}
 		io.emit('localUpdatePossition',players);
-           // console.log(packet);
-		//io.sockets.emit('possitionUpdate', socket.handshake.session.username+" : "+packet.message);
+       
 	});
 });
 console.log("Server started at localhost:" + server.address().port );
