@@ -37,6 +37,7 @@ var player = {
 };
 addPlayer(player);
 
+
 var keyState = {};    
 window.addEventListener('keydown',function(e){
     keyState[e.keyCode || e.which] = true;
@@ -61,6 +62,7 @@ function update() {
     if (keyState[40] || keyState[83]){
         player.y += 5;
     }
+
 possitionUpdate(player)
  }
 function draw() {  
