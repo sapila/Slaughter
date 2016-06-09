@@ -26,8 +26,8 @@ var textY = 50;
 var player = {
   id:Math.random() * (10000 - 1) + 1,
   color: "#00A",
-  x: 50,
-  y: 50,
+  x: 150,
+  y: 10,
   width: 16,
   height: 16,
   draw: function() {
@@ -66,16 +66,10 @@ function update() {
     }
     console.log(mouseX + "  " + mouseY);
 
-     var dx=mouseX-player.x;
-      var dy=mouseY-player.y;
-      r=Math.atan2(dy,dx)*(180/Math.PI);
-      if(r < 0)
+     var dx=mouseX-(player.x);
+      var dy=mouseY-(player.y);
+      r=Math.atan2(dy,dx);
 
-        {
-
-            r = 360 - (-r);
-
-        }
       console.log(r);
 
 possitionUpdate(player)
@@ -89,17 +83,24 @@ function draw() {
 
  
 //	player.draw();
-	for(var i=0;i<localPlayers.length;i++){
-     canvas.save();
-      //canvas.translate(-player.x , -player.y  );
+	// for(var i=0;i<localPlayers.length;i++){
+ //     canvas.save();
+ //     //canvas.translate(player.x +player.width/2, player.y  +player.height/2);
 
-		canvas.fillStyle = localPlayers[i].color;
-   // canvas.rotate(r);
-    canvas.fillRect(localPlayers[i].x, localPlayers[i].y, localPlayers[i].width, localPlayers[i].height);
+	// 	canvas.fillStyle = localPlayers[i].color;
+ //    canvas.rotate(45);
+ //    canvas.fillRect(localPlayers[i].x, localPlayers[i].y, localPlayers[i].width, localPlayers[i].height);
+ //    canvas.restore();
+	// } 
+  canvas.fillStyle = player.color;
+    // canvas.fillRect(player.x, player.y, player.width, player.height);
+canvas.save();
+    canvas.translate(player.x + player.width/2, player.y +player.height/2);
+
+   
+    canvas.rotate(r);
+    canvas.fillRect(-player.width/2, -player.height/2, player.width, player.height);
     canvas.restore();
-	}
-     
-
 }
 
 
