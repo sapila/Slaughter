@@ -28,6 +28,7 @@ var player = {
   color: "#00A",
   x: 150,
   y: 10,
+  r:0,
   width: 16,
   height: 16,
   draw: function() {
@@ -46,7 +47,6 @@ window.addEventListener('keyup',function(e){
     keyState[e.keyCode || e.which] = false;
 },true);
 
-var r;
 function update() {
 
 
@@ -68,9 +68,8 @@ function update() {
 
      var dx=mouseX-(player.x);
       var dy=mouseY-(player.y);
-      r=Math.atan2(dy,dx);
-
-      console.log(r);
+      player.r=Math.atan2(dy,dx);
+console.log(player)
 
 possitionUpdate(player)
  }
@@ -83,7 +82,7 @@ function draw() {
 
  
 //	player.draw();
-	// for(var i=0;i<localPlayers.length;i++){
+	for(var i=0;i<localPlayers.length;i++){
  //     canvas.save();
  //     //canvas.translate(player.x +player.width/2, player.y  +player.height/2);
 
@@ -92,15 +91,16 @@ function draw() {
  //    canvas.fillRect(localPlayers[i].x, localPlayers[i].y, localPlayers[i].width, localPlayers[i].height);
  //    canvas.restore();
 	// } 
-  canvas.fillStyle = player.color;
-    // canvas.fillRect(player.x, player.y, player.width, player.height);
-canvas.save();
-    canvas.translate(player.x + player.width/2, player.y +player.height/2);
+  canvas.fillStyle = localPlayers[i].color;
+  canvas.save();
+    canvas.translate(localPlayers[i].x + localPlayers[i].width/2, localPlayers[i].y +localPlayers[i].height/2);
 
    
-    canvas.rotate(r);
-    canvas.fillRect(-player.width/2, -player.height/2, player.width, player.height);
+    canvas.rotate(localPlayers[i].r);
+    canvas.fillRect(localPlayers[i].width-15, localPlayers[i].height-14, localPlayers[i].width, localPlayers[i].height/2);
+    canvas.fillRect(-localPlayers[i].width/2, -localPlayers[i].height/2, localPlayers[i].width, localPlayers[i].height);
     canvas.restore();
+  } 
 }
 
 
